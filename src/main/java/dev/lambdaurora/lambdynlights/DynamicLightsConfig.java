@@ -35,6 +35,7 @@ public class DynamicLightsConfig {
 	private static final boolean DEFAULT_SELF_LIGHT_SOURCE = true;
 	private static final boolean DEFAULT_BLOCK_ENTITIES_LIGHT_SOURCE = true;
 	private static final boolean DEFAULT_WATER_SENSITIVE_CHECK = true;
+	private static final boolean DEFAULT_SHOULD_ENABLE_ITEMS_WITH_SHADERS = true;
 	private static final ExplosiveLightingMode DEFAULT_CREEPER_LIGHTING_MODE = ExplosiveLightingMode.SIMPLE;
 	private static final ExplosiveLightingMode DEFAULT_TNT_LIGHTING_MODE = ExplosiveLightingMode.OFF;
 
@@ -46,6 +47,7 @@ public class DynamicLightsConfig {
 	private final BooleanSettingEntry selfLightSource;
 	private final BooleanSettingEntry blockEntitiesLightSource;
 	private final BooleanSettingEntry waterSensitiveCheck;
+	private final BooleanSettingEntry shouldEnableItemsWithShaders;
 	private ExplosiveLightingMode creeperLightingMode;
 	private ExplosiveLightingMode tntLightingMode;
 
@@ -81,6 +83,8 @@ public class DynamicLightsConfig {
 				});
 		this.waterSensitiveCheck = new BooleanSettingEntry("light_sources.water_sensitive_check", DEFAULT_WATER_SENSITIVE_CHECK, this.config,
 				Text.translatable("lambdynlights.tooltip.water_sensitive"));
+		this.shouldEnableItemsWithShaders = new BooleanSettingEntry("compat.enable_items_with_shaders", DEFAULT_SHOULD_ENABLE_ITEMS_WITH_SHADERS, this.config,
+		                                                            Text.translatable("lambdynlights.tooltip.enable_items_with_shaders"));
 	}
 
 	/**
@@ -96,6 +100,7 @@ public class DynamicLightsConfig {
 		this.selfLightSource.load(this.config);
 		this.blockEntitiesLightSource.load(this.config);
 		this.waterSensitiveCheck.load(this.config);
+		this.shouldEnableItemsWithShaders.load(this.config);
 		this.creeperLightingMode = ExplosiveLightingMode.byId(this.config.getOrElse("light_sources.creeper", DEFAULT_CREEPER_LIGHTING_MODE.getName()))
 				.orElse(DEFAULT_CREEPER_LIGHTING_MODE);
 		this.tntLightingMode = ExplosiveLightingMode.byId(this.config.getOrElse("light_sources.tnt", DEFAULT_TNT_LIGHTING_MODE.getName()))
@@ -129,6 +134,7 @@ public class DynamicLightsConfig {
 		this.getSelfLightSource().set(DEFAULT_SELF_LIGHT_SOURCE);
 		this.getBlockEntitiesLightSource().set(DEFAULT_BLOCK_ENTITIES_LIGHT_SOURCE);
 		this.getWaterSensitiveCheck().set(DEFAULT_WATER_SENSITIVE_CHECK);
+		this.getShouldEnableItemsWithShaders().set(DEFAULT_SHOULD_ENABLE_ITEMS_WITH_SHADERS);
 		this.setCreeperLightingMode(DEFAULT_CREEPER_LIGHTING_MODE);
 		this.setTntLightingMode(DEFAULT_TNT_LIGHTING_MODE);
 	}
@@ -182,6 +188,13 @@ public class DynamicLightsConfig {
 	 */
 	public BooleanSettingEntry getWaterSensitiveCheck() {
 		return this.waterSensitiveCheck;
+	}
+
+	/**
+	 * {@return the shader enable compat setting holder}
+	 */
+	public BooleanSettingEntry getShouldEnableItemsWithShaders() {
+		return this.shouldEnableItemsWithShaders;
 	}
 
 	/**
